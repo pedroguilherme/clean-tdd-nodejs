@@ -5,7 +5,12 @@
     "target": "ES2021",
     "esModuleInterop": true,
     "sourceMap": true,
-    "allowJs": true
+    "allowJs": true,
+    "strictNullChecks": true, // Tratar caso o null seja atribuido
+    "noImplicitAny": true, // Totalmente tipado
+    "noEmitOnError": true, // Em caso de erro, não copílar
+    "removeComments": true, // Remover comentários na copilação,
+    "experimentalDecorators": true // Decorators
   },
   "exclude": [
     "node_modules"
