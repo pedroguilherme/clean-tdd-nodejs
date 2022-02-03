@@ -1,5 +1,8 @@
 {
   "*.ts": [
-    "eslint 'src/**' --fix"
+    "eslint 'src/**' --fix",
+    "npm run test:staged",
+    "123",
+    "git add"
   ]
 }
