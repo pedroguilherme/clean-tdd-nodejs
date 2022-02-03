@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // Exportar os TS convertidos para JS
+    "module": "commonjs", // Com Import/Export não mais require
+    "target": "ES2021",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "allowJs": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
