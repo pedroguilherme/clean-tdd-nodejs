@@ -1,18 +1,22 @@
-import { HttpRequest, HttpResponse, Controller, EmailValidator, SignUpBody } from '../protocols'
+import { HttpRequest, HttpResponse, Controller } from '../protocols'
+import { EmailValidator } from '../protocols/email-validator'
+import { SignUp } from '../protocols/body/signup'
 import { InvalidParamError, MissingParamError } from '../errors'
 import { badRequest, serverRequest } from '../helpers/http'
+import { AddAccount } from '../../domain/usecases'
 
-export class SignUpController implements Controller<SignUpBody> {
+export class SignUpController implements Controller<SignUp> {
   constructor (
-    private readonly emailValidator: EmailValidator
+    private readonly emailValidator: EmailValidator,
+    private readonly addAccount: AddAccount
   ) {
   }
 
-  handle (httpRequest: HttpRequest<SignUpBody>): HttpResponse {
+  handle (httpRequest: HttpRequest<SignUp>): HttpResponse {
     try {
-      const body = httpRequest.body as SignUpBody
+      const body = httpRequest.body as SignUp
       // Validação dos campos
-      let key: keyof SignUpBody
+      let key: keyof SignUp
       for (key in body) {
         if (!body[key]) {
           return badRequest(new MissingParamError(key))
@@ -28,6 +32,12 @@ export class SignUpController implements Controller<SignUpBody> {
       if (!this.emailValidator.isValid(body.email)) {
         return badRequest(new InvalidParamError('email'))
       }
+
+      this.addAccount.add({
+        name: body.name,
+        email: body.email,
+        password: body.password
+      })
 
       return {
         statusCode: 200,
