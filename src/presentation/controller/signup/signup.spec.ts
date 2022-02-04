@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
-import { AccountModel, AddAccount, AddAccountModel, EmailValidator, SignUp } from './signup-protocols'
+import { AccountModel, AddAccount, AddAccountModel, EmailValidator, SignUp } from './signup-protocols-exp'
 import { SignUpController } from './signup'
 
 const makeBody = (modelo: {

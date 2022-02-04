@@ -2,7 +2,9 @@ export default {
   roots: ['<rootDir>/src'],
   clearMocks: true,
   verbose: true,
-  modulePathIgnorePatterns: ['<rootDir>/node_modules/'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/node_modules/'
+  ],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '.*.xtest.ts',
@@ -10,10 +12,12 @@ export default {
   ],
   testEnvironment: 'node',
   preset: 'ts-jest',
-  collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/**/index.ts',
+    '!<rootDir>/src/**/*-exp.ts'
+  ],
   coverageDirectory: 'coverage',
-  coverageProvider: 'babel',
   transform: {
     '.+\\.ts$': 'ts-jest'
   }
