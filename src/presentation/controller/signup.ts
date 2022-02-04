@@ -4,7 +4,7 @@ import { badRequest } from '../helpers/http'
 import { Controller } from '../protocols/controller'
 
 export class SignUpController implements Controller {
-  handle (httpRequest: HttpRequest<any>): HttpResponse<any> {
+  handle (httpRequest: HttpRequest): HttpResponse {
     const requiredFields = [
       'name',
       'email',
