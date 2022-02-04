@@ -3,20 +3,25 @@ import { MissingParamError, InvalidParamError, ServerError } from '../errors'
 import { EmailValidator } from '../protocols'
 import { SignUpController } from './signup'
 
+const makeBody = (modelo: {
+  param?: string
+  name?: string
+  email?: string
+  password?: string
+  passwordConfirmation?: string
+}): any => {
+  return {
+    name: modelo.param === 'name' ? '' : (modelo.name ?? faker.name.firstName()),
+    email: modelo.param === 'email' ? '' : (modelo.email ?? faker.internet.email()),
+    password: modelo.param === 'password' ? '' : (modelo.password ?? faker.internet.password()),
+    passwordConfirmation: modelo.param === 'passwordConfirmation' ? '' : (modelo.passwordConfirmation ?? faker.internet.password())
+  }
+}
+
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {
       return true
-    }
-  }
-
-  return new EmailValidatorStub()
-}
-
-const makeEmailValidatorWithError = (): EmailValidator => {
-  class EmailValidatorStub implements EmailValidator {
-    isValid (email: string): boolean {
-      throw new Error()
     }
   }
 
@@ -32,21 +37,6 @@ const makeSut = (): {
   return {
     sut,
     emailValidatorStub
-  }
-}
-
-const makeBody = (modelo: {
-  param?: string
-  name?: string
-  email?: string
-  password?: string
-  passwordConfirmation?: string
-}): any => {
-  return {
-    name: modelo.param === 'name' ? '' : (modelo.name ?? faker.name.firstName()),
-    email: modelo.param === 'email' ? '' : (modelo.email ?? faker.internet.email()),
-    password: modelo.param === 'password' ? '' : (modelo.password ?? faker.internet.password()),
-    passwordConfirmation: modelo.param === 'passwordConfirmation' ? '' : (modelo.passwordConfirmation ?? faker.internet.password())
   }
 }
 
@@ -113,8 +103,10 @@ describe('SignUp Controller', function () {
   })
 
   test('Should return 500 if EmailValidator throws', () => {
-    const emailValidatorStub = makeEmailValidatorWithError()
-    const sut = new SignUpController(emailValidatorStub)
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
     const httpRequest = {
       body: makeBody({})
     }
