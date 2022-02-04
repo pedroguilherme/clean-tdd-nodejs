@@ -11,12 +11,13 @@ export default {
     '/generated/'
   ],
   testEnvironment: 'node',
-  preset: 'ts-jest',
+  preset: '@shelf/jest-mongodb',
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/*-exp.ts'
   ],
+
   coverageDirectory: 'coverage',
   transform: {
     '.+\\.ts$': 'ts-jest'
