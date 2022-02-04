@@ -7,6 +7,7 @@ const makeEncryptStub = (): Encrypter => {
       return await new Promise(resolve => resolve('hashed_password'))
     }
   }
+
   return new EncryptStub()
 }
 
@@ -33,5 +34,21 @@ describe('DbAddAccount Usecase', function () {
     }
     await sut.add(accountData)
     expect(encryptSpy).toHaveBeenCalledWith('valid_password')
+  })
+
+  test('Should throw if Encryprer throws', async () => {
+    const { sut, encryptStub } = makeSut()
+    jest.spyOn(encryptStub, 'encrypt')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())
+        )
+      )
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_email',
+      password: 'valid_password'
+    }
+    const promise = sut.add(accountData)
+    await expect(promise).rejects.toThrow()
   })
 })
