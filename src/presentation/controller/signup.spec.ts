@@ -10,11 +10,12 @@ const makeBody = (modelo: {
   password?: string
   passwordConfirmation?: string
 }): any => {
+  const password = faker.internet.password()
   return {
     name: modelo.param === 'name' ? '' : (modelo.name ?? faker.name.firstName()),
     email: modelo.param === 'email' ? '' : (modelo.email ?? faker.internet.email()),
-    password: modelo.param === 'password' ? '' : (modelo.password ?? faker.internet.password()),
-    passwordConfirmation: modelo.param === 'passwordConfirmation' ? '' : (modelo.passwordConfirmation ?? faker.internet.password())
+    password: modelo.param === 'password' ? '' : (modelo.password ?? password),
+    passwordConfirmation: modelo.param === 'passwordConfirmation' ? '' : (modelo.passwordConfirmation ?? password)
   }
 }
 
@@ -113,5 +114,15 @@ describe('SignUp Controller', function () {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 400 if password confirmation fails', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: makeBody({ passwordConfirmation: 'invalid_password_confirmation' })
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new InvalidParamError('passwordConfirmation'))
   })
 })
