@@ -18,6 +18,12 @@ export class SignUpController implements Controller<SignUpBody> {
           return badRequest(new MissingParamError(key))
         }
       }
+
+      // Validação de senhas iguais
+      if (body.password !== body.passwordConfirmation) {
+        return badRequest(new InvalidParamError('passwordConfirmation'))
+      }
+
       // Validação do e-mail
       if (!this.emailValidator.isValid(body.email)) {
         return badRequest(new InvalidParamError('email'))
