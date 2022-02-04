@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker'
 import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { AccountModel, AddAccount, AddAccountModel, EmailValidator, SignUp } from './signup-protocols-exp'
 import { SignUpController } from './signup'
@@ -10,10 +9,10 @@ const makeBody = (modelo: {
   password?: string
   passwordConfirmation?: string
 }): SignUp => {
-  const password = faker.internet.password()
+  const password = 'any_password'
   return {
-    name: modelo.param === 'name' ? '' : (modelo.name ?? faker.name.firstName()),
-    email: modelo.param === 'email' ? '' : (modelo.email ?? faker.internet.email()),
+    name: modelo.param === 'name' ? '' : (modelo.name ?? 'any_name'),
+    email: modelo.param === 'email' ? '' : (modelo.email ?? 'any_email@email.com'),
     password: modelo.param === 'password' ? '' : (modelo.password ?? password),
     passwordConfirmation: modelo.param === 'passwordConfirmation' ? '' : (modelo.passwordConfirmation ?? password)
   }
