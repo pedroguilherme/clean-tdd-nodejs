@@ -9,7 +9,7 @@ export class SignUpController implements Controller<SignUp> {
   ) {
   }
 
-  handle (httpRequest: HttpRequest<SignUp>): HttpResponse {
+  async handle (httpRequest: HttpRequest<SignUp>): Promise<HttpResponse> {
     try {
       const body = httpRequest.body as SignUp
       // Validação dos campos
@@ -30,7 +30,7 @@ export class SignUpController implements Controller<SignUp> {
         return badRequest(new InvalidParamError('email'))
       }
 
-      const account = this.addAccount.add({
+      const account = await this.addAccount.add({
         name: body.name,
         email: body.email,
         password: body.password
