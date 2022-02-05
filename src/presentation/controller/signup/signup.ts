@@ -1,20 +1,24 @@
-import { HttpRequest, HttpResponse, Controller, SignUp, EmailValidator, AddAccount } from './signup-protocols-exp'
+import { HttpRequest, HttpResponse, Controller, EmailValidator, AddAccount } from './signup-protocols-exp'
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest, created, serverRequest } from '../../helpers/http'
 
-export class SignUpController implements Controller<SignUp> {
+export class SignUpController implements Controller {
   constructor (
     private readonly emailValidator: EmailValidator,
     private readonly addAccount: AddAccount
   ) {
   }
 
-  async handle (httpRequest: HttpRequest<SignUp>): Promise<HttpResponse> {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const body = httpRequest.body as SignUp
+      const body = httpRequest.body
+
+      if (!body || !Object.keys(body).length) {
+        return badRequest(new MissingParamError('no values provided'))
+      }
+
       // Validação dos campos
-      let key: keyof SignUp
-      for (key in body) {
+      for (const key in body) {
         if (!body[key]) {
           return badRequest(new MissingParamError(key))
         }

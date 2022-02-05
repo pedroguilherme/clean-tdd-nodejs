@@ -25,6 +25,6 @@ describe('SignUp Routes', function () {
         password: '12345',
         passwordConfirmation: '12345'
       })
-      .expect(200)
+      .expect(201)
   })
 })
