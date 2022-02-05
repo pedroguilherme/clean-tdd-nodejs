@@ -7,7 +7,7 @@ describe('CORS Middleware', function () {
       res.send()
     })
     await supertest(app)
-      .get('/test_body_parser')
+      .get('/test_cors')
       .expect('access-control-allow-origin', '*')
       .expect('access-control-allow-headers', '*')
       .expect('access-control-allow-methods', '*')
