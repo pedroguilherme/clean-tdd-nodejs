@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  database:
+    image: 'mongo'
+    container_name: 'clean-node-api'
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./mongo-volume:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: clean-node-api
