@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
-import { AccountModel, AddAccount, AddAccountModel, EmailValidator, SignUp } from './signup-protocols-exp'
+import { AccountModel, AddAccount, AddAccountModel, EmailValidator } from './signup-protocols-exp'
 import { SignUpController } from './signup'
 
 const makeBody = (modelo: {
@@ -8,7 +8,7 @@ const makeBody = (modelo: {
   email?: string
   password?: string
   passwordConfirmation?: string
-}): SignUp => {
+}): any => {
   const password = 'any_password'
   return {
     name: modelo.param === 'name' ? '' : (modelo.name ?? 'any_name'),
@@ -58,6 +58,16 @@ const makeSut = (): {
 }
 
 describe('SignUp Controller', function () {
+  test.each([[undefined], [{}]])('Should return 400 if no values is provided', async (body: any) => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: body
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new MissingParamError('no values provided'))
+  })
+
   test('Should return 400 if no name is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
