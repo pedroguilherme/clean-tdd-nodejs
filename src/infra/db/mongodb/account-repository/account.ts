@@ -2,7 +2,6 @@ import { AddAccountRepository } from '../../../../data/protocols/add-account-rep
 import { AccountModel } from '../../../../domain/models/account'
 import { AddAccountModel } from '../../../../domain/usecases/add-account'
 import { MongoHelper } from '../helpers/mongodb'
-import { Document, WithId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository {
   async add (accountData: AddAccountModel): Promise<AccountModel> {
@@ -12,11 +11,6 @@ export class AccountMongoRepository implements AddAccountRepository {
     if (!data) {
       throw new Error('Account failed on register at database')
     }
-    return this.convert(data)
-  }
-
-  private convert (data: WithId<Document>): AccountModel {
-    const { _id, ...accountWithouId } = data
-    return Object.assign({}, accountWithouId, { id: _id.toString() }) as unknown as AccountModel
+    return MongoHelper.map(data) as AccountModel
   }
 }
