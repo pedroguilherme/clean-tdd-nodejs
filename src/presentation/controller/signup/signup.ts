@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponse, Controller, EmailValidator, AddAccount, Validation } from './signup-protocols-exp'
-import { InvalidParamError, MissingParamError } from '../../errors'
+import { InvalidParamError } from '../../errors'
 import { badRequest, created, serverError } from '../../helpers/http'
 
 export class SignUpController implements Controller {
@@ -17,17 +17,6 @@ export class SignUpController implements Controller {
       const error = this.validation.validate(body)
       if (error) {
         return badRequest(error)
-      }
-
-      if (!body || !Object.keys(body).length) {
-        return badRequest(new MissingParamError('no values provided'))
-      }
-
-      // Validação dos campos
-      for (const key of ['name', 'email', 'password', 'passwordConfirmation']) {
-        if (!body[key]) {
-          return badRequest(new MissingParamError(key))
-        }
       }
 
       // Validação de senhas iguais
