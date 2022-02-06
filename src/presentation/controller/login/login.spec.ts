@@ -4,14 +4,12 @@ import { badRequest } from '../../helpers/http'
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { EmailValidator } from '../../protocols/email-validator'
 
-const makeHttpRequest = (modelo: any): HttpRequest => {
-  return {
-    body: {
-      email: modelo.param === 'email' ? '' : (modelo.email ?? 'any_email@email.com'),
-      password: modelo.param === 'password' ? '' : (modelo.password ?? 'any_password')
-    }
+const makeHttpRequest = (modelo: any): HttpRequest => ({
+  body: {
+    email: modelo.param === 'email' ? '' : (modelo.email ?? 'any_email@email.com'),
+    password: modelo.param === 'password' ? '' : (modelo.password ?? 'any_password')
   }
-}
+})
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
