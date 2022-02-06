@@ -18,7 +18,7 @@ export class SignUpController implements Controller {
       }
 
       // Validação dos campos
-      for (const key in body) {
+      for (const key of ['name', 'email', 'password', 'passwordConfirmation']) {
         if (!body[key]) {
           return badRequest(new MissingParamError(key))
         }
