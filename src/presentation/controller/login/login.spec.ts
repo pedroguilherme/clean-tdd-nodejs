@@ -1,6 +1,6 @@
 import { LoginController } from './login'
 import { Controller, HttpRequest, EmailValidator, Authentication } from './authentication-protocols-exp'
-import { badRequest, serverError, unauthorizedError } from '../../helpers/http'
+import { badRequest, ok, serverError, unauthorizedError } from '../../helpers/http'
 import { InvalidParamError, MissingParamError } from '../../errors'
 
 const makeHttpRequest = (modelo: any): HttpRequest => ({
@@ -100,5 +100,10 @@ describe('Login Controller', function () {
       })
     const httpResponse = await sut.handle((makeHttpRequest({})))
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+  it('should return 200 if valid credential are provide ', async function () {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle((makeHttpRequest({})))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
