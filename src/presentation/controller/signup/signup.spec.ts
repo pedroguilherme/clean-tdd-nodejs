@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
+import { MissingParamError, ServerError } from '../../errors'
 import {
   AccountModel,
   AddAccount,
@@ -102,13 +102,6 @@ const makeSut = (): {
 }
 
 describe('SignUp Controller', function () {
-  test('Should return 400 if an invalid email is provided', async () => {
-    const { sut, emailValidatorStub } = makeSut()
-    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
-    const httpResponse = await sut.handle(makeHttpRequest({ email: 'invalid_email' }))
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('email')))
-  })
-
   test('Should call EmailValidator with correct email', async () => {
     const { sut, emailValidatorStub } = makeSut()
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
@@ -123,12 +116,6 @@ describe('SignUp Controller', function () {
     })
     const httpResponse = await sut.handle(makeHttpRequest({}))
     expect(httpResponse).toEqual(serverError(new ServerError()))
-  })
-
-  test('Should return 400 if password confirmation fails', async () => {
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle(makeHttpRequest({ passwordConfirmation: 'invalid_password_confirmation' }))
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('passwordConfirmation')))
   })
 
   test('Should call AddAccount with correct values', async () => {
