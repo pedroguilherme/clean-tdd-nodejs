@@ -14,7 +14,10 @@ export class SignUpController implements Controller {
     try {
       const body = httpRequest.body
 
-      this.validation.validate(body)
+      const error = this.validation.validate(body)
+      if (error) {
+        return badRequest(error)
+      }
 
       if (!body || !Object.keys(body).length) {
         return badRequest(new MissingParamError('no values provided'))
