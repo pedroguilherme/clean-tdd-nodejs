@@ -1,18 +1,31 @@
 {
   "compilerOptions": {
-    "outDir": "dist", // Exportar os TS convertidos para JS
-    "module": "commonjs", // Com Import/Export não mais require
+    // Exportar os TS convertidos para JS
+    "outDir": "dist",
+    "rootDirs": [
+      "src"
+    ],
+    "baseUrl": "src",
+    // Com Import./Export. não mais require
+    "module": "commonjs",
     "target": "ES2021",
     "esModuleInterop": true,
+    // Para debubar
     "sourceMap": true,
+    // Habilita arquivos JS
     "allowJs": true,
-    "strictNullChecks": true, // Tratar caso o null seja atribuido
-    "noImplicitAny": true, // Totalmente tipado
-    "noEmitOnError": true, // Em caso de erro, não copílar
-    "removeComments": true, // Remover comentários na copilação,
-    "experimentalDecorators": true // Decorators
+    // Tratar caso o null seja atribuido por default
+    "strictNullChecks": true,
+    // Totalmente tipado, diz que deve ser especificado a tipagem
+    "noImplicitAny": true,
+    // Em caso de erro, não copílar
+    "noEmitOnError": true,
+    // Remover comentários na copilação,
+    "removeComments": true,
+    // Decorators
+    "experimentalDecorators": true
   },
-  "exclude": [
-    "node_modules"
+  "include": [
+    "src"
   ]
 }

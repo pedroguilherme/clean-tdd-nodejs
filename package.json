@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sucrase-node src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "dev": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --noStackTrace --no-watchman",
     "test:unit": "npm test -- --watch --runInBand --config=jest-unit.config.ts",
     "test:integration": "npm test -- --watch --config=jest-integration.config.ts",
