@@ -1,13 +1,13 @@
 import { DbAddAccount } from './db-add-account'
-import { AccountModel, AddAccountModel, Encrypter, AddAccountRepository } from './db-add-account-exp'
+import { AccountModel, AddAccountModel, Hasher, AddAccountRepository } from './db-add-account-exp'
 
-const makeEncryptStub = (): Encrypter => {
-  class EncryptStub implements Encrypter {
+const makeHasherStub = (): Hasher => {
+  class HasherStub implements Hasher {
     async encrypt (value: string): Promise<string> {
       return await new Promise(resolve => resolve('hashed_password'))
     }
   }
-  return new EncryptStub()
+  return new HasherStub()
 }
 
 const makeAddAccountRepositoryStub = (): AddAccountRepository => {
@@ -25,10 +25,10 @@ const makeAddAccountRepositoryStub = (): AddAccountRepository => {
 
 const makeSut = (): {
   sut: DbAddAccount
-  encryptStub: Encrypter
+  encryptStub: Hasher
   addAccountRepositoryStub: AddAccountRepository
 } => {
-  const encryptStub = makeEncryptStub()
+  const encryptStub = makeHasherStub()
   const addAccountRepositoryStub = makeAddAccountRepositoryStub()
   const sut = new DbAddAccount(encryptStub, addAccountRepositoryStub)
   return {
@@ -39,7 +39,7 @@ const makeSut = (): {
 }
 
 describe('DbAddAccount Usecase', function () {
-  test('Should call Encrypter with correct password', async () => {
+  test('Should call Hasher with correct password', async () => {
     const { sut, encryptStub } = makeSut()
     const encryptSpy = jest.spyOn(encryptStub, 'encrypt')
     const accountData = {
