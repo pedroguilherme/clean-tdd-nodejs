@@ -17,7 +17,7 @@ const makeSut = (): BcryptAdapter => {
   return new BcryptAdapter(salt)
 }
 
-describe('Bcrypt Aapter', function () {
+describe('Bcrypt Adapter', function () {
   test('Should call hash with correct value', async () => {
     const sut = makeSut()
     const hashSpy = jest.spyOn(bcrypt, 'hash')
@@ -48,5 +48,15 @@ describe('Bcrypt Aapter', function () {
     const sut = makeSut()
     const isValid = await sut.compare('any_value', 'any_hash')
     expect(isValid).toBe(true)
+  })
+  test('Should return false on compare fails', async () => {
+    const sut = makeSut()
+    jest.spyOn(bcrypt, 'compare').mockImplementationOnce(
+      () => {
+        return false
+      }
+    )
+    const isValid = await sut.compare('any_value', 'any_hash')
+    expect(isValid).toBe(false)
   })
 })
