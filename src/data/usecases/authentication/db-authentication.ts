@@ -17,8 +17,11 @@ export class DbAuthentication implements Authentication {
       return await new Promise(resolve => resolve(null))
     }
 
-    await this.hashComparer.compare(authentication.password, account.password)
-    await this.tokenGenerator.generate(account.id)
-    return await new Promise(resolve => resolve(null))
+    const isValidComparer = await this.hashComparer.compare(authentication.password, account.password)
+    if (!isValidComparer) {
+      return null
+    }
+
+    return await this.tokenGenerator.generate(account.id)
   }
 }
