@@ -12,7 +12,6 @@
     "removeComments": true, // Remover comentários na copilação,
     "experimentalDecorators": true // Decorators
   },
-  "include": ["src", "tests"],
   "exclude": [
     "node_modules"
   ]
