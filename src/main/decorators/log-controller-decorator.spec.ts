@@ -17,7 +17,7 @@ const makeControllerStub = (): Controller => {
 const makeLogErrorRepositoryStub = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
     async logError (error: Error): Promise<void> {
-      console.error(error.stack)
+      await new Promise(resolve => resolve(error))
     }
   }
 

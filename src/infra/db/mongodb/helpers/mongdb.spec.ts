@@ -1,24 +1,23 @@
 import { MongoHelper as sut } from './mongodb'
 
 describe('Mongo Helper', function () {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await sut.connect(process.env.MONGO_URL ?? '')
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await sut.disconnect()
   })
 
-  it('should reconect if mongodb is down', async function () {
-    let accoutCollection = sut.getCollection('accounts')
+  test('should reconect if mongodb is down', async function () {
+    let accoutCollection = await sut.getCollection('accounts')
     expect(accoutCollection).toBeTruthy()
     await sut.disconnect()
-    accoutCollection = sut.getCollection('accounts')
+    accoutCollection = await sut.getCollection('accounts')
     expect(accoutCollection).toBeTruthy()
   })
 
-  it('should return true if connected', async function () {
-    await sut.connect(process.env.MONGO_URL ?? '')
+  test('should return true if connected', async function () {
     expect(sut.isConnected()).toBe(true)
   })
 })
