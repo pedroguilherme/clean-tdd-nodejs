@@ -17,7 +17,7 @@ const authModel: AuthenticationModel = {
 
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-    async load (): Promise<AccountModel> {
+    async load (): Promise<AccountModel | null> {
       const account: AccountModel = accountModel
       return await new Promise<AccountModel>(resolve => resolve(account))
     }
@@ -53,5 +53,11 @@ describe('DbAuthentication UseCase', function () {
       )
     const accessToken = sut.auth(authModel)
     await expect(accessToken).rejects.toThrow(new Error())
+  })
+  it('should return if LoadAccountByEmailRepository returns null', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'load').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    const accessToken = await sut.auth(authModel)
+    expect(accessToken).toBeNull()
   })
 })
