@@ -8,7 +8,7 @@ import {
   Validation
 } from './signup-protocols-exp'
 import { SignUpController } from './signup'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, serverError } from '../../helpers/http/http'
 
 const makeHttpRequest = (modelo: {
   param?: string
