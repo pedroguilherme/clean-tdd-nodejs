@@ -26,7 +26,10 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   return new LoadAccountByEmailRepositoryStub()
 }
 
-const makeSut = (): any => {
+const makeSut = (): {
+  sut: DbAuthentication
+  loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
+} => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const sut = new DbAuthentication(loadAccountByEmailRepositoryStub)
   return {
