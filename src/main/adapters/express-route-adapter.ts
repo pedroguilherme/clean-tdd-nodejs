@@ -7,7 +7,8 @@ export const expressRouteAdapter = (controller: Controller) => {
       body: req.body
     }
     void controller.handle(httpRequest).then(httpResponse => {
-      if (httpResponse.statusCode === 500) {
+      const errorsCode = /^[4,5]\d{2}$/
+      if (errorsCode.test(httpResponse.statusCode.toString())) {
         res.status(httpResponse.statusCode)
           .json({
             error: httpResponse.body.message
