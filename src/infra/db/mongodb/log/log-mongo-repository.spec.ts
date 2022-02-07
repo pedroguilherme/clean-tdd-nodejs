@@ -1,7 +1,7 @@
 import { MongoHelper } from '../helpers/mongodb'
 import { ServerError } from '../../../../presentation/errors'
 import { Collection } from 'mongodb'
-import { LogMongoRepository } from './log'
+import { LogMongoRepository } from './log-mongo-repository'
 
 describe('Log Mongo Repository', function () {
   let errorCollection: Collection

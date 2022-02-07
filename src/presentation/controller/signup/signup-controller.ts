@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse, Controller, AddAccount, Validation } from './signup-protocols-exp'
+import { HttpRequest, HttpResponse, Controller, AddAccount, Validation } from './signup-controller-protocols-exp'
 import { badRequest, created, serverError } from '../../helpers/http/http'
 
 export class SignUpController implements Controller {

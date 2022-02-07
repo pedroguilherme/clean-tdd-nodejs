@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist", // Exportar os TS convertidos para JS
+    "outDir": "dist", // Exportar os TS convertidos para JS
     "module": "commonjs", // Com Import/Export não mais require
     "target": "ES2021",
     "esModuleInterop": true,
@@ -12,6 +12,7 @@
     "removeComments": true, // Remover comentários na copilação,
     "experimentalDecorators": true // Decorators
   },
+  "include": ["src", "tests"],
   "exclude": [
     "node_modules"
   ]
