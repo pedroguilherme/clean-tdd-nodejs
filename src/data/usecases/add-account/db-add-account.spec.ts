@@ -3,7 +3,7 @@ import { AccountModel, AddAccountModel, Hasher, AddAccountRepository } from './d
 
 const makeHasherStub = (): Hasher => {
   class HasherStub implements Hasher {
-    async encrypt (value: string): Promise<string> {
+    async hash (value: string): Promise<string> {
       return await new Promise(resolve => resolve('hashed_password'))
     }
   }
@@ -41,7 +41,7 @@ const makeSut = (): {
 describe('DbAddAccount Usecase', function () {
   test('Should call Hasher with correct password', async () => {
     const { sut, encryptStub } = makeSut()
-    const encryptSpy = jest.spyOn(encryptStub, 'encrypt')
+    const encryptSpy = jest.spyOn(encryptStub, 'hash')
     const accountData = {
       name: 'valid_name',
       email: 'valid_email',
@@ -52,7 +52,7 @@ describe('DbAddAccount Usecase', function () {
   })
   test('Should throw if Encryprer throws', async () => {
     const { sut, encryptStub } = makeSut()
-    jest.spyOn(encryptStub, 'encrypt')
+    jest.spyOn(encryptStub, 'hash')
       .mockReturnValueOnce(
         new Promise((resolve, reject) => reject(new Error())
         )
