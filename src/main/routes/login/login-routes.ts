@@ -6,4 +6,7 @@ import { makeLoginController } from '../../fatories/login/login-factory'
 export default (router: Router): void => {
   router.post('/signup', expressRouteAdapter(makeSignUpController()))
   router.post('/login', expressRouteAdapter(makeLoginController()))
+  router.post('/hello', (req, res) => {
+    res.send('teste 123')
+  })
 }
