@@ -35,6 +35,7 @@ const makeHttpResponse = (modelo: {
   name?: string
   email?: string
   password?: string
+  accessToken?: string
 }): HttpResponse => {
   return {
     statusCode: modelo.statusCode ?? 200,
@@ -42,7 +43,8 @@ const makeHttpResponse = (modelo: {
       id: modelo.id ?? '1',
       name: modelo.name ?? 'any_name',
       email: modelo.email ?? 'any_email@email.com',
-      password: modelo.password ?? 'any_password'
+      password: modelo.password ?? 'any_password',
+      accessToken: modelo.accessToken ?? 'any_token'
     }
   }
 }
