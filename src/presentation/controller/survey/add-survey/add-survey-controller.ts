@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse, Validation } from '../../../protocols'
-import { badRequest, created, serverError } from '../../../helpers/http/http'
+import { badRequest, noContent, serverError } from '../../../helpers/http/http'
 import { AddSurvey } from '../../../../domain/usecases/add-survey'
 
 export class AddSurveyController implements Controller {
@@ -23,7 +23,7 @@ export class AddSurveyController implements Controller {
         answers
       })
 
-      return created({})
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
