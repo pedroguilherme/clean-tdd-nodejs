@@ -1,9 +1,11 @@
 import { Controller, HttpRequest, HttpResponse, Validation } from '../../../protocols'
 import { badRequest, created } from '../../../helpers/http/http'
+import { AddSurvey } from '../../../../domain/usecases/add-survey'
 
 export class AddSurveyController implements Controller {
   constructor (
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly addSurvey: AddSurvey
   ) {
   }
 
@@ -14,6 +16,12 @@ export class AddSurveyController implements Controller {
       return badRequest(error)
     }
 
-    return await new Promise(resolve => resolve(created({})))
+    const { question, answers } = httpRequest.body
+    await this.addSurvey.add({
+      question,
+      answers
+    })
+
+    return created({})
   }
 }
