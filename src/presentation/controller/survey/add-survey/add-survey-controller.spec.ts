@@ -1,6 +1,6 @@
 import { Controller, HttpRequest, Validation, AddSurvey, AddSurveyModel } from './add-survey-controller-protocols-exp'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest } from '../../../helpers/http/http'
+import { badRequest, serverError } from '../../../helpers/http/http'
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
@@ -69,5 +69,14 @@ describe('AddSurvey Controller', function () {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+  it('should return 500 if AddSurvey throws', async function () {
+    const { sut, addSurveyStub } = makeSut()
+    jest.spyOn(addSurveyStub, 'add')
+      .mockImplementationOnce(() => {
+        throw new Error()
+      })
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
