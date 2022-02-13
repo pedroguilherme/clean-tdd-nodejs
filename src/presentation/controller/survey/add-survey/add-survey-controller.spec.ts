@@ -1,6 +1,6 @@
 import { Controller, HttpRequest, Validation, AddSurvey, AddSurveyModel } from './add-survey-controller-protocols-exp'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest, serverError } from '../../../helpers/http/http'
+import { badRequest, noContent, serverError } from '../../../helpers/http/http'
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
@@ -78,5 +78,10 @@ describe('AddSurvey Controller', function () {
       })
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+  it('should return 204 on success', async function () {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(noContent())
   })
 })
