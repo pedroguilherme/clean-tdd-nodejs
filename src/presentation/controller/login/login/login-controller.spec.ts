@@ -1,8 +1,8 @@
 import { LoginController } from './login-controller'
 import { Controller, HttpRequest, Authentication, AuthenticationModel } from './login-controller-protocols-exp'
-import { badRequest, ok, serverError, unauthorizedError } from '../../helpers/http/http'
-import { MissingParamError } from '../../errors'
-import { Validation } from '../../protocols'
+import { badRequest, ok, serverError, unauthorizedError } from '../../../helpers/http/http'
+import { MissingParamError } from '../../../errors'
+import { Validation } from '../../../protocols'
 
 const makeHttpRequest = (modelo: any): HttpRequest => ({
   body: {
