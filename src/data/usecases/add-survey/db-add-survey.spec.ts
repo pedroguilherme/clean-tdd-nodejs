@@ -15,6 +15,7 @@ const makeAddSurveyRepoStub = (): AddSurveyRepository => {
       return await new Promise(resolve => resolve())
     }
   }
+
   return new AddSurveyRepositoryStub()
 }
 
@@ -39,5 +40,16 @@ describe('DbAddSurvey Use Case', function () {
     const surveyData = makeFakeSurveyData()
     await sut.add(surveyData)
     expect(addSpy).toHaveBeenCalledWith(surveyData)
+  })
+
+  it('should throws if AddSurveyRepository throws', async () => {
+    const { sut, addSurveyRepositoryStub } = makeSut()
+    jest.spyOn(addSurveyRepositoryStub, 'add')
+      .mockImplementationOnce(() => {
+        throw new Error()
+      })
+    const surveyData = makeFakeSurveyData()
+    const error = sut.add(surveyData)
+    await expect(error).rejects.toThrow(new Error())
   })
 })
