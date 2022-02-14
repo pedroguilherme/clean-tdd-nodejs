@@ -1,6 +1,6 @@
 import { Middleware } from '../protocols/middleware'
 import { HttpRequest, HttpResponse } from '../protocols'
-import { forbidden, noContent } from '../helpers/http/http'
+import { forbidden, ok } from '../helpers/http/http'
 import { AccessDeniedError } from '../errors'
 import { LoadAccountByToken } from '../../domain/usecases/load-account-by-token'
 
@@ -24,6 +24,6 @@ export class AuthMiddleware implements Middleware {
       return forbidden(new AccessDeniedError())
     }
 
-    return await new Promise(resolve => resolve(noContent()))
+    return ok({ accountId: account.id })
   }
 }
