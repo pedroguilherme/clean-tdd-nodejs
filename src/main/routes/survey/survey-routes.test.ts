@@ -20,7 +20,7 @@ describe('Survey Routes', function () {
   })
 
   describe('POST / surveys', function () {
-    test('Should return 204 on survey', async () => {
+    test('Should return 403 on survey', async () => {
       await supertest(app)
         .post('/api/surveys')
         .send({
@@ -33,7 +33,7 @@ describe('Survey Routes', function () {
             answer: 'any_answer_2'
           }]
         })
-        .expect(204)
+        .expect(403)
     })
   })
 })
