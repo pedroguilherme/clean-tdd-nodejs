@@ -16,13 +16,12 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
       return null
     }
 
-    await this.loadAccountByTokenRepository.loadByToken(accessToken, role)
+    const account = await this.loadAccountByTokenRepository.loadByToken(accessToken, role)
 
-    return {
-      id: 'valid_id',
-      email: 'valid_email',
-      name: 'valid_name',
-      password: 'hashed_password'
+    if (!account) {
+      return null
     }
+
+    return account
   }
 }
