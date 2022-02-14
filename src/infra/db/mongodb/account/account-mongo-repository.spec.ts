@@ -69,7 +69,7 @@ describe('Account Mongo Repository', function () {
     const account = await sut.loadByEmail('any_email@mail.com')
     expect(account).toBeNull()
   })
-  it('Should return an account on loadByEmail without role', async () => {
+  it('Should return an account on loadByToken without role', async () => {
     await accountCollection.insertOne({
       ...addAccountModel,
       accessToken: 'any_token'
@@ -82,7 +82,7 @@ describe('Account Mongo Repository', function () {
     expect(account.email).toBe(addAccountModel.email)
     expect(account.password).toBe(addAccountModel.password)
   })
-  it('Should return an account on loadByEmail with role', async () => {
+  it('Should return an account on loadByToken with role', async () => {
     await accountCollection.insertOne({
       ...addAccountModel,
       accessToken: 'any_token',
@@ -95,5 +95,10 @@ describe('Account Mongo Repository', function () {
     expect(account.name).toBe(addAccountModel.name)
     expect(account.email).toBe(addAccountModel.email)
     expect(account.password).toBe(addAccountModel.password)
+  })
+  test('Should return null if loadByToken fails', async () => {
+    const sut = makeSut()
+    const account = await sut.loadByToken('any_token')
+    expect(account).toBeNull()
   })
 })
