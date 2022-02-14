@@ -6,7 +6,8 @@ import { LoadAccountByToken } from '../../domain/usecases/load-account-by-token'
 
 export class AuthMiddleware implements Middleware {
   constructor (
-    private readonly loadAccountByToken: LoadAccountByToken
+    private readonly loadAccountByToken: LoadAccountByToken,
+    private readonly role?: string
   ) {
   }
 
@@ -19,7 +20,7 @@ export class AuthMiddleware implements Middleware {
       const accessToken = httpRequest.headers.Authorization
         .replace('Bearer', '')
         .trim()
-      const account = await this.loadAccountByToken.load(accessToken)
+      const account = await this.loadAccountByToken.load(accessToken, this.role)
 
       if (!account) {
         return forbidden(new AccessDeniedError())
