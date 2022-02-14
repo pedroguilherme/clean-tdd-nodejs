@@ -5,7 +5,7 @@ import { AccountModel, LoadAccountByToken, HttpRequest, Middleware } from './aut
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   headers: {
-    Authorization: 'Bearer any_token'
+    authorization: 'Bearer any_token'
   }
 })
 
