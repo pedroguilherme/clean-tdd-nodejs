@@ -18,7 +18,11 @@ export class AuthMiddleware implements Middleware {
     const accessToken = httpRequest.headers.Authorization
       .replace('Bearer', '')
       .trim()
-    await this.loadAccountByToken.load(accessToken)
+    const account = await this.loadAccountByToken.load(accessToken)
+
+    if (!account) {
+      return forbidden(new AccessDeniedError())
+    }
 
     return await new Promise(resolve => resolve(noContent()))
   }
