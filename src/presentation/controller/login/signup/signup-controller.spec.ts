@@ -9,7 +9,7 @@ import {
 } from './signup-controller-protocols-exp'
 import { SignUpController } from './signup-controller'
 import { badRequest, forbidden, serverError } from '../../../helpers/http/http'
-import { Authentication, AuthenticationModel } from '../../../../domain/usecases/authentication'
+import { Authentication, AuthenticationModel } from '../../../../domain/usecases/account/authentication'
 
 const makeHttpRequest = (modelo: {
   param?: string
