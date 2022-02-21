@@ -69,4 +69,11 @@ describe('Survey Routes', function () {
         .expect(204)
     })
   })
+  describe('GET / surveys', function () {
+    test('Should return 403 on load if no accessToken is provided', async () => {
+      await supertest(app)
+        .get('/api/surveys')
+        .expect(403)
+    })
+  })
 })
