@@ -1,4 +1,4 @@
-import { AddAccountModel } from '../../../../domain/usecases/add-account'
+import { AddAccountModel } from '../../../../domain/usecases/account/add-account'
 import { MongoHelper } from '../helpers/mongodb'
 import { AccountMongoRepository } from './account-mongo-repository'
 import { Collection } from 'mongodb'
@@ -67,6 +67,38 @@ describe('Account Mongo Repository', function () {
   test('Should return null if updateAccessToken fails', async () => {
     const sut = makeSut()
     const account = await sut.loadByEmail('any_email@mail.com')
+    expect(account).toBeNull()
+  })
+  it('Should return an account on loadByToken without role', async () => {
+    await accountCollection.insertOne({
+      ...addAccountModel,
+      accessToken: 'any_token'
+    })
+    const sut = makeSut()
+    const account = (await sut.loadByToken('any_token')) as AccountModel
+    expect(account).toBeTruthy()
+    expect(account.id).toBeTruthy()
+    expect(account.name).toBe(addAccountModel.name)
+    expect(account.email).toBe(addAccountModel.email)
+    expect(account.password).toBe(addAccountModel.password)
+  })
+  it('Should return an account on loadByToken with role', async () => {
+    await accountCollection.insertOne({
+      ...addAccountModel,
+      accessToken: 'any_token',
+      role: 'any_role'
+    })
+    const sut = makeSut()
+    const account = (await sut.loadByToken('any_token', 'any_role')) as AccountModel
+    expect(account).toBeTruthy()
+    expect(account.id).toBeTruthy()
+    expect(account.name).toBe(addAccountModel.name)
+    expect(account.email).toBe(addAccountModel.email)
+    expect(account.password).toBe(addAccountModel.password)
+  })
+  test('Should return null if loadByToken fails', async () => {
+    const sut = makeSut()
+    const account = await sut.loadByToken('any_token')
     expect(account).toBeNull()
   })
 })

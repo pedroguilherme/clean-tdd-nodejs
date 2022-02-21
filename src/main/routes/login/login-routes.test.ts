@@ -3,6 +3,7 @@ import app from '../../config/app'
 import { MongoHelper } from '../../../infra/db/mongodb/helpers/mongodb'
 import { Collection } from 'mongodb'
 import { hash } from 'bcrypt'
+import env from '../../config/env'
 
 describe('Login Routes', function () {
   let accountCollection: Collection
@@ -36,7 +37,7 @@ describe('Login Routes', function () {
 
   describe('POST / login', () => {
     test('Should return 200 on login', async () => {
-      const password = await hash('123', 12)
+      const password = await hash('123', env.salt)
       await accountCollection.insertOne({
         name: 'Pedro',
         email: 'pedro@teste.com.br',
