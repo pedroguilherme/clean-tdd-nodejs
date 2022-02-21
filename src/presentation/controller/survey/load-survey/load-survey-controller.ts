@@ -9,7 +9,7 @@ export class LoadSurveyController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    await this.loadSurvey.load()
-    return ok({})
+    const surveys = await this.loadSurvey.load()
+    return ok(surveys)
   }
 }
