@@ -46,4 +46,16 @@ describe('Jwt Adapter', function () {
     const value = await sut.decrypt('any_token')
     expect(value).toBe('any_value')
   })
+  it('should returns null if JwtAdapter decrypt throws with named error JsonWebTokenError', async () => {
+    const sut = makeSut()
+    jest.spyOn(jwt, 'verify').mockImplementationOnce(
+      () => {
+        const error = new Error()
+        error.name = 'JsonWebTokenError'
+        throw error
+      }
+    )
+    const accessToken = await sut.decrypt('any_token')
+    expect(accessToken).toBeNull()
+  })
 })

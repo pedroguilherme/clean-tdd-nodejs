@@ -15,7 +15,8 @@
     "docker:up": "docker-compose up -d",
     "docker:stop": "docker-compose stop",
     "docker:test": "docker exec -t clean-tdd-node bash -c \"npm test --passWithNoTests --noStackTrace --no-watchman\"",
-    "docker:rebuild": "docker-compose restart"
+    "docker:restart": "docker-compose restart",
+    "docker:rebuild": "docker-compose up -d --force-recreate"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "husky": "^4.3.8",
     "jest": "^27.4.7",
     "lint-staged": "^12.3.3",
+    "mockdate": "^3.0.5",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.4.0",

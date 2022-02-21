@@ -9,6 +9,7 @@ const makeSut = (): SurveyMongoRepository => {
 
 const makeFakeAddSurveyModel = (): AddSurveyModel => ({
   question: 'any_question',
+  date: new Date(),
   answers: [
     {
       image: 'any_image',
@@ -41,5 +42,41 @@ describe('Account Mongo Repository', function () {
     await sut.add(makeFakeAddSurveyModel())
     const survey = await surveyCollection.findOne({ question: 'any_question' })
     expect(survey).toBeTruthy()
+  })
+
+  test('Should load all surveys on success', async () => {
+    await surveyCollection.insertMany([
+      {
+        question: 'any_question',
+        date: new Date(),
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ]
+      },
+      {
+        question: 'other_question',
+        date: new Date(),
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ]
+      }
+    ])
+    const sut = makeSut()
+    const surveys = await sut.loadAll()
+    expect(surveys.length).toBe(2)
+    expect(surveys[0].question).toBe('any_question')
+    expect(surveys[1].question).toBe('other_question')
+  })
+
+  test('Should load empty list', async () => {
+    const sut = makeSut()
+    const surveys = await sut.loadAll()
+    expect(surveys.length).toBe(0)
   })
 })
