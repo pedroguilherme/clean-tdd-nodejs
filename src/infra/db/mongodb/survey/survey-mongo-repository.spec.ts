@@ -9,6 +9,7 @@ const makeSut = (): SurveyMongoRepository => {
 
 const makeFakeAddSurveyModel = (): AddSurveyModel => ({
   question: 'any_question',
+  date: new Date(),
   answers: [
     {
       image: 'any_image',
