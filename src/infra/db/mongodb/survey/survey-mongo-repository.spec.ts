@@ -43,4 +43,32 @@ describe('Account Mongo Repository', function () {
     const survey = await surveyCollection.findOne({ question: 'any_question' })
     expect(survey).toBeTruthy()
   })
+
+  test('Should load all surveys on success', async () => {
+    await surveyCollection.insertMany([
+      {
+        question: 'any_question',
+        date: new Date(),
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ]
+      },
+      {
+        question: 'other_question',
+        date: new Date(),
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ]
+      }
+    ])
+    const sut = makeSut()
+    const surveys = await sut.loadAll()
+    expect(surveys.length).toBe(2)
+  })
 })
