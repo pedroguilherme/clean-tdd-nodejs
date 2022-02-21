@@ -56,7 +56,7 @@ const makeAddAccountStub = (): AddAccount => {
         id: '1',
         name: account.name,
         email: account.email,
-        password: account.password
+        password: 'hash_password'
       }
       return await new Promise(resolve => resolve(fakeAccount))
     }
@@ -125,7 +125,7 @@ describe('SignUp Controller', function () {
   test('Should return 201 if valid data is provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeHttpRequest({}))
-    expect(httpResponse).toEqual(makeHttpResponse({ statusCode: 201 }))
+    expect(httpResponse).toEqual(makeHttpResponse({ statusCode: 201, password: 'hash_password' }))
   })
 
   test('Should return 403 if AddAccount returns null', async () => {

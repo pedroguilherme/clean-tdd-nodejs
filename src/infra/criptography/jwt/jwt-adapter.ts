@@ -13,7 +13,15 @@ export class JwtAdapter implements Encrypter, Decrypter {
   }
 
   decrypt (value: string): string | null {
-    const verify = jwt.verify(value, this.secret)
-    return verify ? verify as string : null
+    try {
+      const verify = jwt.verify(value, this.secret)
+      return verify ? verify as string : null
+    } catch (error) {
+      if (error.name === 'JsonWebTokenError') {
+        return null
+      }
+
+      throw error
+    }
   }
 }
