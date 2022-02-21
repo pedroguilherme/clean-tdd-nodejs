@@ -9,7 +9,6 @@ export class DbLoadSurvey implements LoadSurvey {
   }
 
   async load (): Promise<SurveyModel[]> {
-    await this.loadSurveyRepository.loadAll()
-    return []
+    return await this.loadSurveyRepository.loadAll()
   }
 }
