@@ -1,8 +1,8 @@
-import { AddAccountModel } from '../../../../domain/usecases/account/add-account'
-import { MongoHelper } from '../helpers/mongodb'
+import { AddAccountModel } from '@/domain/usecases/account/add-account'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongodb'
 import { AccountMongoRepository } from './account-mongo-repository'
 import { Collection } from 'mongodb'
-import { AccountModel } from '../../../../domain/models/account'
+import { AccountModel } from '@/domain/models/account'
 
 const makeSut = (): AccountMongoRepository => {
   return new AccountMongoRepository()

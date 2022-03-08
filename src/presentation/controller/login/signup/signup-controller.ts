@@ -6,8 +6,8 @@ import {
   Validation,
   Authentication
 } from './signup-controller-protocols-exp'
-import { badRequest, created, forbidden, serverError } from '../../../helpers/http/http'
-import { ParamInUseError } from '../../../errors'
+import { badRequest, created, forbidden, serverError } from '@/presentation/helpers/http/http'
+import { ParamInUseError } from '@/presentation/errors'
 
 export class SignUpController implements Controller {
   constructor (

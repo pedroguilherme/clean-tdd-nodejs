@@ -18,7 +18,9 @@ export default {
     '!<rootDir>/src/**/main/**',
     '!<rootDir>/src/**/*-exp.ts'
   ],
-
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1'
+  },
   coverageDirectory: 'coverage',
   transform: {
     '.+\\.ts$': 'ts-jest'

@@ -1,5 +1,5 @@
 import { AccountModel, AddAccount, AddAccountModel, AddAccountRepository, Hasher } from './db-add-account-exp'
-import { LoadAccountByEmailRepository } from '../../../protocols/db/account/load-account-by-email-repository'
+import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
 
 export class DbAddAccount implements AddAccount {
   constructor (

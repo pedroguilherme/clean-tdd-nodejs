@@ -1,5 +1,5 @@
-import { AddSurveyModel } from '../../../../domain/usecases/survey/add-survey'
-import { MongoHelper } from '../helpers/mongodb'
+import { AddSurveyModel } from '@/domain/usecases/survey/add-survey'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongodb'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 import { Collection } from 'mongodb'
 

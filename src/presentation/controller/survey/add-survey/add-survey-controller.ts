@@ -1,6 +1,6 @@
-import { Controller, HttpRequest, HttpResponse, Validation } from '../../../protocols'
-import { badRequest, noContent, serverError } from '../../../helpers/http/http'
-import { AddSurvey } from '../../../../domain/usecases/survey/add-survey'
+import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http'
+import { AddSurvey } from '@/domain/usecases/survey/add-survey'
 
 export class AddSurveyController implements Controller {
   constructor (

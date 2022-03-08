@@ -6,6 +6,11 @@
       "src"
     ],
     "baseUrl": "src",
+    // Alias for paths
+    "paths": {
+      "@/*": ["*"]
+    },
+    "moduleResolution": "node",
     // Com Import./Export. não mais require
     "module": "commonjs",
     "target": "ES2021",

@@ -1,5 +1,5 @@
-import { MongoHelper } from '../helpers/mongodb'
-import { ServerError } from '../../../../presentation/errors'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongodb'
+import { ServerError } from '@/presentation/errors'
 import { Collection } from 'mongodb'
 import { LogMongoRepository } from './log-mongo-repository'
 

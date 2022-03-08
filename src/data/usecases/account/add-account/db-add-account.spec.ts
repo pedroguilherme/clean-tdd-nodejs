@@ -1,7 +1,7 @@
 import { DbAddAccount } from './db-add-account'
 import { AccountModel, AddAccountModel, Hasher, AddAccountRepository } from './db-add-account-exp'
-import { LoadAccountByEmailRepository } from '../../../protocols/db/account/load-account-by-email-repository'
-import { AuthenticationModel } from '../../../../domain/usecases/account/authentication'
+import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
+import { AuthenticationModel } from '@/domain/usecases/account/authentication'
 
 const accountModel: AccountModel = {
   id: 'any_id',

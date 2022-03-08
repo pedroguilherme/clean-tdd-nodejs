@@ -51,10 +51,14 @@
     "express": "^4.17.2",
     "fast-glob": "^3.2.11",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^4.3.1",
     "validator": "^13.7.0"
   },
   "engines": {
     "node": "16.x"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
