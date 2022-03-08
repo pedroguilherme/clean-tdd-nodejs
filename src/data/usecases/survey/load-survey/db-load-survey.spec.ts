@@ -4,7 +4,7 @@ import { DbLoadSurvey } from './db-load-survey'
 import { SurveyModel } from '@/domain/models/survey'
 import MockDate from 'mockdate'
 
-interface SutTypes {
+type SutTypes = {
   sut: LoadSurvey
   loadSurveyRepositoryStub: LoadSurveyRepository
 }
