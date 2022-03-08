@@ -1,7 +1,7 @@
-import { LoadSurvey } from '../../../../domain/usecases/survey/load-survey'
-import { LoadSurveyRepository } from '../../../protocols/db/survey/load-survey-repository'
+import { LoadSurvey } from '@/domain/usecases/survey/load-survey'
+import { LoadSurveyRepository } from '@/data/protocols/db/survey/load-survey-repository'
 import { DbLoadSurvey } from './db-load-survey'
-import { SurveyModel } from '../../../../domain/models/survey'
+import { SurveyModel } from '@/domain/models/survey'
 import MockDate from 'mockdate'
 
 interface SutTypes {

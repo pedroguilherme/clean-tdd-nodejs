@@ -1,10 +1,10 @@
 import supertest from 'supertest'
-import app from '../../config/app'
-import { MongoHelper } from '../../../infra/db/mongodb/helpers/mongodb'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongodb'
 import { Collection } from 'mongodb'
 import { hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import env from '../../config/env'
+import app from '@/main/config/app'
+import env from '@/main/config/env'
 
 let surveyCollection: Collection
 let accountCollection: Collection

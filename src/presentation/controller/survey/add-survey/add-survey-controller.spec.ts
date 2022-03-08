@@ -1,6 +1,6 @@
 import { Controller, HttpRequest, Validation, AddSurvey, AddSurveyModel } from './add-survey-controller-protocols-exp'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest, noContent, serverError } from '../../../helpers/http/http'
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http'
 import MockDate from 'mockdate'
 
 const makeValidation = (): Validation => {

@@ -1,4 +1,4 @@
-import { ValidationComposite, RequiredFieldValidation } from '../../../../../validation/validators'
+import { ValidationComposite, RequiredFieldValidation } from '@/validation/validators'
 
 export const makeAddSurveyValidation = (): ValidationComposite => {
   return new ValidationComposite([
